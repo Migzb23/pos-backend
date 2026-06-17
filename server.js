@@ -59,6 +59,16 @@ app.delete('/sales/clear', async (req, res) => {
   }
 });
 
+// ✅ NEW: Delete one sale by ID
+app.delete('/sales/:id', async (req, res) => {
+  try {
+    await Sale.findByIdAndDelete(req.params.id);
+    res.json({ message: "Sale removed" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // ✅ Display routes
 app.post('/display', async (req, res) => {
   try {
@@ -83,6 +93,16 @@ app.delete('/display/clear', async (req, res) => {
   try {
     await Display.deleteMany({});
     res.json({ message: "All display items cleared" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ✅ NEW: Delete one display item by ID
+app.delete('/display/:id', async (req, res) => {
+  try {
+    await Display.findByIdAndDelete(req.params.id);
+    res.json({ message: "Display item removed" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
